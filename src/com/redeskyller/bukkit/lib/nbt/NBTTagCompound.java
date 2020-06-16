@@ -1,10 +1,15 @@
 package com.redeskyller.bukkit.lib.nbt;
 
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 public class NBTTagCompound extends NBTTag<Map<String, NBTTag<?>>>
 {
@@ -169,6 +174,26 @@ public class NBTTagCompound extends NBTTag<Map<String, NBTTag<?>>>
 			entry.getValue().write(outputStream);
 		}
 		outputStream.writeByte(NBTType.END.getTypeID());
+	}
+
+	public void save(File file)
+	{
+		try (NBTOutputStream outputStream = new NBTOutputStream(new GZIPOutputStream(new FileOutputStream(file)))) {
+			outputStream.write(this);
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+	}
+
+	public static NBTTagCompound load(File file)
+	{
+		NBTTagCompound compound = null;
+		try (NBTInputStream inputStream = new NBTInputStream(new GZIPInputStream(new FileInputStream(file)))) {
+			compound = (NBTTagCompound) inputStream.read();
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+		return compound;
 	}
 
 }

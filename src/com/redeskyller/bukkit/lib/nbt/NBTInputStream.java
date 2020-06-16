@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.zip.GZIPInputStream;
 
 public class NBTInputStream implements Closeable
 {
@@ -16,7 +15,7 @@ public class NBTInputStream implements Closeable
 
 	public NBTInputStream(final InputStream inputStream) throws IOException
 	{
-		this.dataInputStream = new DataInputStream(new GZIPInputStream(inputStream));
+		this.dataInputStream = new DataInputStream(inputStream);
 	}
 
 	public NBTTag<?> read() throws IOException
@@ -32,7 +31,7 @@ public class NBTInputStream implements Closeable
 	private NBTTag<?> readPayload(String name, NBTType type) throws IOException
 	{
 		switch (type) {
-		
+
 		case BYTE:
 			return new NBTTagByte(name, this.dataInputStream.readByte());
 

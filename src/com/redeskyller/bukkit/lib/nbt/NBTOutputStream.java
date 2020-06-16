@@ -4,7 +4,6 @@ import java.io.Closeable;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.zip.GZIPOutputStream;
 
 public class NBTOutputStream implements Closeable
 {
@@ -13,7 +12,7 @@ public class NBTOutputStream implements Closeable
 
 	public NBTOutputStream(final OutputStream outputStream) throws IOException
 	{
-		this.dataOutputStream = new DataOutputStream(new GZIPOutputStream(outputStream));
+		this.dataOutputStream = new DataOutputStream(outputStream);
 	}
 
 	public void write(NBTTag<?> namedBinaryTag) throws IOException

@@ -25,8 +25,6 @@ public abstract class NBTTag<V>
 		return this.value.toString();
 	}
 
-	// OutputStream
-
 	protected void write(final DataOutputStream outputStream) throws IOException
 	{
 		this.writeHead(outputStream);
