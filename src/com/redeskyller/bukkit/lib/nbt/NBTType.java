@@ -20,33 +20,10 @@ public enum NBTType
 
 	public static NBTType valueOf(int typeID)
 	{
-		switch (typeID) {
-		case 0:
-			return END;
-		case 1:
-			return BYTE;
-		case 2:
-			return SHORT;
-		case 3:
-			return INT;
-		case 4:
-			return LONG;
-		case 5:
-			return FLOAT;
-		case 6:
-			return DOUBLE;
-		case 7:
-			return BYTE_ARRAY;
-		case 8:
-			return STRING;
-		case 9:
-			return LIST;
-		case 10:
-			return COMPOUND;
-		case 11:
-			return INT_ARRAY;
-		case 12:
-			return LONG_ARRAY;
+		for(NBTType type : NBTType.values()){
+			if(type.getTypeID() == typeID){
+				return type;
+			}
 		}
 		return null;
 	}
